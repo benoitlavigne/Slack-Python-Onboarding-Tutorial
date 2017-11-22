@@ -13,6 +13,10 @@ from slackclient import SlackClient
 # save this in a more persistant memory store.
 authed_teams = {}
 
+# As you can obtain your bot token from your app's direct install flow,
+# you can store your bot token in environment variables to
+# avoid having to reinstall your app after each restart
+BOT_TOKEN = os.environ.get("BOT_TOKEN","")
 
 class Bot(object):
     """ Instanciates a Bot object to handle Slack onboarding interactions."""
@@ -34,7 +38,7 @@ class Bot(object):
         # an oauth token. We can connect to the client without authenticating
         # by passing an empty string as a token and then reinstantiating the
         # client with a valid OAuth token once we have one.
-        self.client = SlackClient("")
+        self.client = SlackClient(BOT_TOKEN)
         # We'll use this dictionary to store the state of each message object.
         # In a production envrionment you'll likely want to store this more
         # persistantly in  a database.
