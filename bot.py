@@ -252,10 +252,17 @@ class Bot(object):
         # Update the timestamp saved on the message object
         message_obj.timestamp = post_message["ts"]
 
-    def answer(self):
-
+    def answer(self,channel_id,text):
         """
         handling messages received by the bot
         """
-
         print "message was passed to the bot handler"
+        if "hello" in text:
+            bot_answer = "hi!"
+        else:
+            bot_answer = "sorry, I can only reply to 'hello'"
+        response = self.client.api_call("chat.postMessage",
+                                            channel=channel_id,
+                                            text=bot_answer
+                                            )
+        print response

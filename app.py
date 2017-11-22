@@ -74,9 +74,16 @@ def _event_handler(event_type, slack_event):
     # If our bot receives a message
     elif event_type == "message":
         print "our bot received a message"
+        # grabbing the user, present only if message wasn't sent by a bot
+        user = slack_event["event"].get("user")
         # Call the bot's method handling this event
-        pyBot.answer()
+        # making sure we only respond to user messages and ignore bots'
+        if user:
+            text = slack_event["event"]["text"]
+            channel_id = slack_event["event"]["channel"]
+            pyBot.answer(channel_id,text)
         return make_response("received a message", 200,)
+
 
     # ============= Event Type Not Found! ============= #
     # If the event_type does not have a handler
