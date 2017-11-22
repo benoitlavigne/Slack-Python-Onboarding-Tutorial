@@ -31,6 +31,8 @@ def _event_handler(event_type, slack_event):
         Response object with 200 - ok or 500 - No Event Handler error
 
     """
+    print slack_event
+
     team_id = slack_event["team_id"]
     # ================ Team Join Events =============== #
     # When the user first joins a team, the type of event will be team_join
@@ -67,6 +69,14 @@ def _event_handler(event_type, slack_event):
         # Update the onboarding message
         pyBot.update_pin(team_id, user_id)
         return make_response("Welcome message updates with pin", 200,)
+
+    # =============== Message Event ================ #
+    # If our bot receives a message
+    elif event_type == "message":
+        print "our bot received a message"
+        # Call the bot's method handling this event
+        pyBot.answer()
+        return make_response("received a message", 200,)
 
     # ============= Event Type Not Found! ============= #
     # If the event_type does not have a handler

@@ -251,3 +251,11 @@ class Bot(object):
                                             )
         # Update the timestamp saved on the message object
         message_obj.timestamp = post_message["ts"]
+
+    def answer(self):
+
+        """
+        handling messages received by the bot
+        """
+
+        print "message was passed to the bot handler"
